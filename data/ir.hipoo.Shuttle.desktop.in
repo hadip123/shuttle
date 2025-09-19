@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=shuttle
+Exec=ir.hipoo.Shuttle
+Icon=ir.hipoo.Shuttle
+Terminal=false
+Type=Application
+Categories=Utility;
+Keywords=GTK;
+StartupNotify=true
+DBusActivatable=true

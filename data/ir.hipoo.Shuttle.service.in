@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=ir.hipoo.Shuttle
+Exec=@bindir@/ir.hipoo.Shuttle --gapplication-service

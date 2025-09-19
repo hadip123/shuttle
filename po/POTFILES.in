@@ -1,0 +1,8 @@
+# List of source files containing translatable strings.
+# Please keep this file sorted alphabetically.
+data/ir.hipoo.Shuttle.desktop.in
+data/ir.hipoo.Shuttle.metainfo.xml.in
+data/ir.hipoo.Shuttle.gschema.xml
+src/main.js
+src/window.js
+src/window.blp

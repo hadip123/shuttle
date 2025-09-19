@@ -1,0 +1,73 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ShuttleWindow: Adw.ApplicationWindow {
+  title: _("Shuttle");
+  default-width: 400;
+  default-height: 600;
+
+  content: Adw.ToolbarView {
+    [top]
+    Adw.HeaderBar {
+      [end]
+      MenuButton {
+        icon-name: "open-menu-symbolic";
+        menu-model: primary_menu;
+      }
+    }
+
+    content: Box {
+      orientation: vertical;
+      spacing: 10;
+      vexpand: false;
+      hexpand: false;
+      halign: center;
+      valign: center;
+
+      Adw.PreferencesGroup {
+        width-request: 300;
+        title: _("SOCKS5 Proxy");
+
+        Adw.EntryRow host_entry {
+          title: _("URL");
+        }
+
+        Adw.SpinRow port {
+          title: _("Port");
+
+          adjustment: Adjustment http_port_adjustment {
+            upper: 65535;
+            step-increment: 1;
+          };
+        }
+
+        Adw.ActionRow {
+          activatable-widget: connection_switch;
+
+          [prefix]
+          Label {
+            label: _("Connection");
+          }
+
+          [suffix]
+          Switch connection_switch {
+            valign: center;
+          }
+        }
+      }    };
+  };
+}
+
+menu primary_menu {
+  section {
+    item {
+      label: _("_Keyboard Shortcuts");
+      action: "app.shortcuts";
+    }
+
+    item {
+      label: _("_About Shuttle");
+      action: "app.about";
+    }
+  }
+}
