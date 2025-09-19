@@ -1,11 +1,9 @@
 {
     "id" : "ir.hipoo.Shuttle",
     "runtime" : "org.gnome.Platform",
-    "runtime-version" : "master",
+    "runtime-version" : "48",
     "sdk" : "org.gnome.Sdk",
     "sdk-extensions" : [
-        "org.freedesktop.Sdk.Extension.node20",
-        "org.freedesktop.Sdk.Extension.typescript"
     ],
     "command" : "ir.hipoo.Shuttle",
     "finish-args" : [
@@ -19,7 +17,17 @@
         "--talk-name=org.freedesktop.Flatpak"
     ],
     "build-options" : {
-        "append-path" : "/usr/lib/sdk/typescript/bin:/usr/lib/sdk/node20/bin"
+        "append-path" : "/usr/lib/sdk/typescript/bin:/usr/lib/sdk/node20/bin",
+"test-args": [
+        "--share=network",
+        "--share=ipc",
+        "--socket=fallback-x11",
+        "--device=dri",
+        "--socket=wayland",
+        "--allow=devel",
+        "--device=all",
+        "--talk-name=org.freedesktop.Flatpak"
+        ]
     },
     "cleanup" : [
         "/include",
@@ -34,13 +42,26 @@
     ],
     "modules" : [
         {
+            "name": "blueprint-compiler",
+            "buildsystem": "meson",
+            "cleanup": ["*"],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/GNOME/blueprint-compiler",
+                    "tag": "0.18.0"
+                }
+            ]
+        },
+        {
             "name" : "shuttle",
             "builddir" : true,
             "buildsystem" : "meson",
             "sources" : [
                 {
                     "type" : "git",
-                    "url" : "file:///home/hadi/Projects/Shuttle"
+                    "url" : "file:///home/hadi/Projects/Shuttle",
+"branch": "main"
                 }
             ]
         }

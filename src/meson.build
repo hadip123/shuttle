@@ -1,12 +1,32 @@
 pkgdatadir = get_option('datadir') / meson.project_name()
 gnome = import('gnome')
-blueprints = custom_target('blueprints',
-  input: files(
+
+blueprint_compiler = find_program('blueprint-compiler', required: true)
+
+# blueprints = custom_target('blueprints',
+#   input: files(
+#     'shortcuts-dialog.blp',
+#     'window.blp',
+#   ),
+#   output: '.',
+#   command: [find_program('blueprint-compiler'), 'batch-compile', '--minify', '@OUTPUT@', '@CURRENT_SOURCE_DIR@', '@INPUT@'],
+# )
+
+blueprint_files = files(
     'shortcuts-dialog.blp',
     'window.blp',
-  ),
+)
+
+compiled_blueprints = custom_target('compiled_blueprints',
+  input: blueprint_files,
   output: '.',
-  command: [find_program('blueprint-compiler'), 'batch-compile', '--minify', '@OUTPUT@', '@CURRENT_SOURCE_DIR@', '@INPUT@'],
+  command: [
+    find_program('blueprint-compiler'),
+    'batch-compile',
+    '@OUTPUT@',
+    '@CURRENT_SOURCE_DIR@',
+    '@INPUT@',
+  ]
 )
 
 src_res = gnome.compile_resources('ir.hipoo.Shuttle.src',
@@ -22,7 +42,7 @@ data_res = gnome.compile_resources('ir.hipoo.Shuttle.data',
   'ir.hipoo.Shuttle.data.gresource.xml',
   gresource_bundle: true,
   install: true,
-    dependencies: blueprints,
+  dependencies: compiled_blueprints,
   install_dir: pkgdatadir,
 )
 
