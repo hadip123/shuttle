@@ -1,3 +1,3 @@
-# shuttle
+# Shuttle
 
-A description of this project.
+Shuttle creates a tunnel to a SOCKS proxy, using the sing-box core.
